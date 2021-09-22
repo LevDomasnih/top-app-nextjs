@@ -1,9 +1,10 @@
 import {FC} from "react";
 import styles from './Button.module.css'
 import {ButtonProps} from "./Button.props";
+import ArrowIcon from './arrow.svg'
 import cn from 'classnames'
 
-export const Button: FC<ButtonProps> = ({children, appearance, className, ...props})=> {
+export const Button: FC<ButtonProps> = ({children, arrow = 'none', appearance, className, ...props})=> {
     return (
         <button
             className={cn(styles.button, className, {
@@ -13,6 +14,12 @@ export const Button: FC<ButtonProps> = ({children, appearance, className, ...pro
             {...props}
         >
             {children}
+            {arrow !== 'none' && <span className={cn(styles.arrow, {
+                [styles.down]: arrow === 'down',
+                [styles.right]: arrow === 'right'
+            })}>
+                <ArrowIcon />
+            </span>}
         </button>
     )
 }
