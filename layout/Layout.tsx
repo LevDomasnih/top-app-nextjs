@@ -4,7 +4,7 @@ import {Sidebar} from "./Sidebar/Sidebar";
 import {Footer} from "./Footer/Footer";
 import {Header} from "./Header/Header";
 
-export const Layout: FC<LayoutProps> = ({children}) => {
+const Layout: FC<LayoutProps> = ({children}) => {
     return (
         <>
             <Header />
@@ -17,4 +17,14 @@ export const Layout: FC<LayoutProps> = ({children}) => {
             <Footer />
         </>
     )
+}
+
+export const withLayout = <T extends Record<string, unknown>>(Component: FC<T>) => {
+    return function withLayoutComponent(props: T) {
+        return (
+            <Layout>
+                <Component {...props}/>
+            </Layout>
+        )
+    }
 }
