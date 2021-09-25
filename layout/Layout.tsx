@@ -3,19 +3,18 @@ import {LayoutProps} from "./Layout.props";
 import {Sidebar} from "./Sidebar/Sidebar";
 import {Footer} from "./Footer/Footer";
 import {Header} from "./Header/Header";
+import style from './Layout.module.css'
 
 const Layout: FC<LayoutProps> = ({children}) => {
     return (
-        <>
-            <Header />
-            <div>
-                <Sidebar />
-                <div>
-                    {children}
-                </div>
+        <div className={style.wrapper}>
+            <Header className={style.header}/>
+            <Sidebar className={style.sidebar}/>
+            <div className={style.body}>
+                {children}
             </div>
-            <Footer />
-        </>
+            <Footer className={style.footer}/>
+        </div>
     )
 }
 
