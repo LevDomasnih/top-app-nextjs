@@ -8,6 +8,7 @@ import ProductsItem from './icons/products.svg'
 import {TopLevelCategory} from "../interfaces/page.interface";
 import styles from './Menu.module.css'
 import cn from "classnames";
+import Link from "next/link";
 
 const firstLevelMenu: FirstLevelMenuItem[] = [
     { route: 'courses', name: 'Курсы', icon: <CoursesItem />, id: TopLevelCategory.Courses},
@@ -24,7 +25,7 @@ export const Menu: FC = () => {
             <>
                 {firstLevelMenu.map(menu => (
                     <div key={menu.route}>
-                        <a href={`/${menu.route}`}>
+                        <Link href={`/${menu.route}`}>
                             <div className={cn(styles.firstLevel, {
                                 [styles.firstLevelActive]: menu.id === firstCategory
                             })}>
@@ -33,7 +34,7 @@ export const Menu: FC = () => {
                                     {menu.name}
                                 </span>
                             </div>
-                        </a>
+                        </Link>
                         {menu.id === firstCategory && buildSecondLevel(menu)}
                     </div>
                 ))}
@@ -62,13 +63,14 @@ export const Menu: FC = () => {
     const buildThirdLevel = (pages: PageItem[], route: string) => {
         return (
             pages.map(p => (
-                <a href={`/${route}/${p.alias}`}
-                   className={cn(styles.thirdLevel, {
-                       [styles.thirdLevelActive]: false
-                   })}
-                >
-                    {p.category}
-                </a>
+                <Link href={`/${route}/${p.alias}`}>
+                    <a className={cn(styles.thirdLevel, {
+                        [styles.thirdLevelActive]: false
+                    })}
+                    >
+                        {p.category}
+                    </a>
+                </Link>
             ))
         )
     }
