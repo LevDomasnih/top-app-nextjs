@@ -16,14 +16,20 @@
 
 .sort {
 	display: grid;
-	grid-template-columns: 1fr 1fr;
+	grid-template-columns: auto auto;
 	gap: 40px;
 }
 
-.sort span:first-child {
+.sort span {
 	display: grid;
-	gap: 8px;
-	grid-template-columns: 20px 1fr;
 
 	align-items: center;
+
+	cursor: pointer;
+	gap: 8px;
+	grid-template-columns: 20px 1fr;
+}
+
+.sort span:not(.active) {
+	grid-template-columns: 1fr;
 }
