@@ -34,7 +34,6 @@ export const getStaticPaths: GetStaticPaths = async () => {
 export const getStaticProps: GetStaticProps<TopPageProps> = async ({ params }: GetStaticPropsContext<ParsedUrlQuery>) => {
     if (!params) return { notFound: true }
 
-    console.log('params: ', params)
     const firstCategoryItem = firstLevelMenu.find(m => m.route === params.type)
     if (!firstCategoryItem) {
         return {
@@ -45,7 +44,6 @@ export const getStaticProps: GetStaticProps<TopPageProps> = async ({ params }: G
         const { data: menu } = await axios.post<MenuItem[]>(process.env.NEXT_PUBLIC_DOMAIN + '/api/top-page/find', {
             firstCategory: firstCategoryItem.id
         })
-        console.log(menu)
         if (menu.length == 0) {
             return {
                 notFound: true

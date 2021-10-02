@@ -1,6 +1,6 @@
 import {FC} from "react";
 import {TopPageComponentProps} from "./TopPageComponent.props";
-import {HhData, Htag, Tag} from "../../components";
+import {Advantages, HhData, Htag, Paragraph, Tag} from "../../components";
 import styles from "./TopPageComponent.module.css"
 import {TopLevelCategory} from "../../interfaces/page.interface";
 
@@ -20,6 +20,15 @@ export const TopPageComponent: FC<TopPageComponentProps> = ({ firstCategory, pag
                 <Tag color="red" size="m">hh.ru</Tag>
             </div>
             {firstCategory === TopLevelCategory.Courses && page.hh && <HhData {...page.hh} />}
+            {page.advantages && page.advantages.length > 0 && (
+                <>
+                    <Htag tag='h2'>Преимущества</Htag>
+                    <Advantages advantages={page.advantages} />
+                </>
+            )}
+            {page.seoText && <Paragraph>{page.seoText}</Paragraph>}
+            <Htag tag='h2'>получаемые навыки</Htag>
+            {page.tags.map(t => <Tag color='primary' key={t}>{t}</Tag>)}
         </div>
     )
 }
