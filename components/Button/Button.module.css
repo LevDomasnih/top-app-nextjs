@@ -46,7 +46,7 @@
 }
 
 .right {
-	transform: rotate(90deg);
+	transform: rotate(0deg);
 }
 
 .primary svg,
