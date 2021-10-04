@@ -17,7 +17,7 @@ export const TopPageComponent: FC<TopPageComponentProps> = ({firstCategory, page
         <div className={styles.wrapper}>
             <div className={styles.title}>
                 <Htag tag='h1'>{page.title}</Htag>
-                {products.length && <Tag color="green" size="m">{products.length}</Tag>}
+                {products.length && <Tag color="grey" size="m">{products.length}</Tag>}
                 <Sort sort={sort} setSort={setSort} />
             </div>
             <div>
