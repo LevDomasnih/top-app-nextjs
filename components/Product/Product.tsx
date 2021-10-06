@@ -9,6 +9,7 @@ import {declOfNum, priceRu} from "../../helpers/helpers";
 import {Divider} from "../Divider/Divider";
 import {Paragraph} from "../Paragraph/Paragraph";
 import Image from "next/image";
+import cn from "classnames";
 
 export const Product: FC<ProductProps> = ({product, className, ...props}) => {
     return (
@@ -60,7 +61,7 @@ export const Product: FC<ProductProps> = ({product, className, ...props}) => {
                 )}
             </div>
 
-            <Divider className={styles.hr} />
+            <Divider className={cn(styles.hr, styles.hr2)} />
 
             <div className={styles.actions}>
                 <Button appearance='primary'>Узнать подробнее</Button>
