@@ -11,6 +11,7 @@ import {Paragraph} from "../Paragraph/Paragraph";
 import Image from "next/image";
 import cn from "classnames";
 import {Review} from "../Review/Review";
+import {ReviewForm} from "../ReviewForm/ReviewForm";
 
 export const Product: FC<ProductProps> = ({product, className, ...props}) => {
     const [isReviewOpened, setIsReviewOpened] = useState<boolean>(false)
@@ -83,7 +84,13 @@ export const Product: FC<ProductProps> = ({product, className, ...props}) => {
                 [styles.open]: isReviewOpened,
                 [styles.closed]: !isReviewOpened,
             })}>
-                {product.reviews.map(r => <Review key={r._id} review={r} /> )}
+                {product.reviews.map(r => (
+                    <>
+                        <Review key={r._id} review={r} />
+                        <Divider />
+                    </>
+                ))}
+                <ReviewForm productId={product._id} />
             </Card>
         </>
     )
