@@ -11,3 +11,19 @@
 .editable {
 	cursor: pointer;
 }
+
+.errorMessage {
+	position: absolute;
+	bottom: -20px;
+	left: 0;
+
+	color: var(--red);
+}
+
+.ratingWrapper {
+	position: relative;
+}
+
+.error svg {
+	stroke: var(--red);
+}

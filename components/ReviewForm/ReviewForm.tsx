@@ -44,8 +44,9 @@ export const ReviewForm: FC<ReviewFormProps> = ({ productId, className, ...props
                     <Controller
                         control={control}
                         name='rating'
+                        rules={{ required: { value: true, message: 'Укажите рейтинг' } }}
                         render={({ field }) => (
-                            <Rating isEditable rating={field.value} ref={field.ref} setRating={field.onChange} />
+                            <Rating error={errors.rating} isEditable rating={field.value} ref={field.ref} setRating={field.onChange} />
                         )}
                     />
                 </div>

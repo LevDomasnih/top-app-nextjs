@@ -2,9 +2,9 @@ import {useEffect, useState, KeyboardEvent, ForwardedRef, forwardRef} from "reac
 import {RatingProps} from "./Rating.props";
 import StarIcon from './star.svg'
 import cn from "classnames";
-import style from './Rating.module.css'
+import styles from './Rating.module.css'
 
-export const Rating = forwardRef(({isEditable = false, rating, setRating, ...props}: RatingProps, ref: ForwardedRef<HTMLDivElement>) => {
+export const Rating = forwardRef(({isEditable = false, error, rating, setRating, ...props}: RatingProps, ref: ForwardedRef<HTMLDivElement>) => {
     const [ratingArray, setRatingArray] = useState<JSX.Element[]>(new Array(5).fill(<></>))
 
     useEffect(() => {
@@ -15,9 +15,9 @@ export const Rating = forwardRef(({isEditable = false, rating, setRating, ...pro
         const updatedArray = ratingArray.map((r, i) => {
             return (
                 <span
-                    className={cn(style.star, {
-                        [style.filled]: i < currentRating,
-                        [style.editable]: isEditable,
+                    className={cn(styles.star, {
+                        [styles.filled]: i < currentRating,
+                        [styles.editable]: isEditable,
                     })}
                     onMouseEnter={() => changeDisplay(i + 1)}
                     onMouseLeave={() => changeDisplay(rating)}
@@ -53,8 +53,14 @@ export const Rating = forwardRef(({isEditable = false, rating, setRating, ...pro
     }
 
     return (
-        <div {...props} ref={ref} >
+        <div
+            className={cn(styles.ratingWrapper, {
+                [styles.error]: error
+            })}
+            {...props} ref={ref}
+        >
             {ratingArray.map((r, i) => <span key={i}>{r}</span>)}
+            {error && <span className={styles.errorMessage}>{error.message}</span>}
         </div>
     )
 })
