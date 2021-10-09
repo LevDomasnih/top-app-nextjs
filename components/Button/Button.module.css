@@ -38,6 +38,8 @@
 	display: inline-block;
 
 	margin-left: 10px;
+
+	transition: 0.2s;
 }
 
 .down {
@@ -50,6 +52,6 @@
 }
 
 .primary svg,
-.ghost:hover svg{
+.ghost:hover svg {
 	fill: var(--white);
 }
