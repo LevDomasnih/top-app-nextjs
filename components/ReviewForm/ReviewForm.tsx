@@ -14,7 +14,8 @@ export const ReviewForm: FC<ReviewFormProps> = ({ productId, className, ...props
     const {
         register,
         control,
-        handleSubmit
+        handleSubmit,
+        formState: { errors }
     } = useForm<IReviewForm>()
 
     const onSubmit = (data: IReviewForm) => {
@@ -27,8 +28,17 @@ export const ReviewForm: FC<ReviewFormProps> = ({ productId, className, ...props
                 className={cn(styles.reviewForm, className)}
                 {...props}
             >
-                <Input {...register('name')} placeholder='Имя' />
-                <Input {...register('title')} placeholder='Заголовок отзыва' className={styles.title} />
+                <Input
+                    {...register('name', { required: { value: true, message: 'Заполните имя' } })}
+                    placeholder='Имя'
+                    error={errors.name}
+                />
+                <Input
+                    {...register('title', { required: { value: true, message: 'Заполните заголовок' } })}
+                    placeholder='Заголовок отзыва'
+                    className={styles.title}
+                    error={errors.title}
+                />
                 <div className={styles.rating}>
                     <span>Оценка</span>
                     <Controller
@@ -39,7 +49,12 @@ export const ReviewForm: FC<ReviewFormProps> = ({ productId, className, ...props
                         )}
                     />
                 </div>
-                <Textarea {...register('description')} placeholder='Текст отзыва' className={styles.description} />
+                <Textarea
+                    {...register('description', { required: { value: true, message: 'Заполните описание' } })}
+                    placeholder='Текст отзыва'
+                    className={styles.description}
+                    error={errors.description}
+                />
                 <div className={styles.submit}>
                     <Button appearance='primary'>
                         Отправить
