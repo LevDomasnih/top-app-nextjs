@@ -5,6 +5,7 @@ import {Footer} from "./Footer/Footer";
 import {Header} from "./Header/Header";
 import style from './Layout.module.css'
 import {AppContextProvider, IAppContext} from "../context/app.context";
+import {Up} from "../components";
 
 const Layout: FC<LayoutProps> = ({children}) => {
     return (
@@ -15,6 +16,7 @@ const Layout: FC<LayoutProps> = ({children}) => {
                 {children}
             </div>
             <Footer className={style.footer}/>
+            <Up />
         </div>
     )
 }
