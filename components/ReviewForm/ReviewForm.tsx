@@ -12,7 +12,7 @@ import {IReviewForm, IReviewSendResponse} from "./ReviewForm.interface";
 import axios from "axios";
 import {API} from "../../helpers/api";
 
-export const ReviewForm: FC<ReviewFormProps> = ({ productId, className, ...props}) => {
+export const ReviewForm: FC<ReviewFormProps> = ({ productId, isOpened, className, ...props}) => {
     const {
         register,
         control,
@@ -47,12 +47,14 @@ export const ReviewForm: FC<ReviewFormProps> = ({ productId, className, ...props
                     {...register('name', { required: { value: true, message: 'Заполните имя' } })}
                     placeholder='Имя'
                     error={errors.name}
+                    tabIndex={isOpened ? 0 : -1}
                 />
                 <Input
                     {...register('title', { required: { value: true, message: 'Заполните заголовок' } })}
                     placeholder='Заголовок отзыва'
                     className={styles.title}
                     error={errors.title}
+                    tabIndex={isOpened ? 0 : -1}
                 />
                 <div className={styles.rating}>
                     <span>Оценка</span>
@@ -61,7 +63,14 @@ export const ReviewForm: FC<ReviewFormProps> = ({ productId, className, ...props
                         name='rating'
                         rules={{ required: { value: true, message: 'Укажите рейтинг' } }}
                         render={({ field }) => (
-                            <Rating error={errors.rating} isEditable rating={field.value} ref={field.ref} setRating={field.onChange} />
+                            <Rating
+                                error={errors.rating}
+                                isEditable
+                                rating={field.value}
+                                ref={field.ref}
+                                setRating={field.onChange}
+                                tabIndex={isOpened ? 0 : -1}
+                            />
                         )}
                     />
                 </div>
@@ -70,9 +79,10 @@ export const ReviewForm: FC<ReviewFormProps> = ({ productId, className, ...props
                     placeholder='Текст отзыва'
                     className={styles.description}
                     error={errors.description}
+                    tabIndex={isOpened ? 0 : -1}
                 />
                 <div className={styles.submit}>
-                    <Button appearance='primary'>
+                    <Button tabIndex={isOpened ? 0 : -1} appearance='primary'>
                         Отправить
                     </Button>
                     <span className={styles.info}>* Перед публикацией отзыв пройдет предварительную модерацию и проверку</span>

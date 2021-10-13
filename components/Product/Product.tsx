@@ -35,6 +35,7 @@ export const Product = motion(forwardRef(({product, className, ...props}: Produc
             behavior: 'smooth',
             block: 'start'
         })
+        reviewRef.current?.focus()
     }
 
     return (
@@ -67,7 +68,7 @@ export const Product = motion(forwardRef(({product, className, ...props}: Produc
                     {product.characteristics.map(c => (
                         <div className={styles.characteristics} key={c.name}>
                             <span className={styles.characteristicsName}>{c.name}</span>
-                            <span className={styles.characteristicsDots}></span>
+                            <span className={styles.characteristicsDots}/>
                             <span className={styles.characteristicsValue}>{c.value}</span>
                         </div>
                     ))}
@@ -107,6 +108,7 @@ export const Product = motion(forwardRef(({product, className, ...props}: Produc
                 animate={isReviewOpened ? 'visible' : 'hidden'}
             >
                 <Card
+                    tabIndex={isReviewOpened ? 0 : -1}
                     color='blue' ref={reviewRef}
                     className={styles.reviews}>
                     {product.reviews.map(r => (
@@ -115,7 +117,7 @@ export const Product = motion(forwardRef(({product, className, ...props}: Produc
                             <Divider />
                         </div>
                     ))}
-                    <ReviewForm productId={product._id} />
+                    <ReviewForm productId={product._id} isOpened={isReviewOpened} />
                 </Card>
             </motion.div>
         </div>
