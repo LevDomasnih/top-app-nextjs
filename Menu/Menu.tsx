@@ -1,4 +1,4 @@
-import {FC, useContext} from "react";
+import {FC, KeyboardEvent, useContext} from "react";
 import {AppContext} from "../context/app.context";
 import {FirstLevelMenuItem, PageItem} from "../interfaces/menu.interface";
 import styles from './Menu.module.css'
@@ -6,7 +6,7 @@ import cn from "classnames";
 import Link from "next/link";
 import {useRouter} from "next/router";
 import {firstLevelMenu} from "../helpers/helpers";
-import { motion } from 'framer-motion'
+import {motion} from 'framer-motion'
 
 export const Menu: FC = () => {
     const { menu, setMenu, firstCategory } = useContext(AppContext)
@@ -44,6 +44,13 @@ export const Menu: FC = () => {
         }))
     }
 
+    const openSecondLevelKey = (key: KeyboardEvent, category: string) => {
+        if (key.code === 'Space' || key.code === 'Enter') {
+            key.preventDefault()
+            openSecondLevel(category)
+        }
+    }
+
     const buildFirstLevel = () => {
         return (
             <>
@@ -74,8 +81,14 @@ export const Menu: FC = () => {
                         m.isOpened = true
                     }
                     return (
-                        <div key={m._id.secondCategory}>
-                            <div className={styles.secondLevel} onClick={() => openSecondLevel(m._id.secondCategory)}>{m._id.secondCategory}</div>
+                        <div
+                            tabIndex={0}
+                            onKeyDown={(key: KeyboardEvent) => openSecondLevelKey(key, m._id.secondCategory)}
+                            key={m._id.secondCategory}
+                        >
+                            <div className={styles.secondLevel}
+                                 onClick={() => openSecondLevel(m._id.secondCategory)}>{m._id.secondCategory}
+                            </div>
                             <motion.div
                                 layout
                                 variants={variants}
@@ -83,7 +96,7 @@ export const Menu: FC = () => {
                                 animate={m.isOpened ? 'visible' : 'hidden'}
                                 className={cn(styles.secondLevelBlock)}
                             >
-                                {buildThirdLevel(m.pages, route)}
+                                {buildThirdLevel(m.pages, route, m.isOpened ?? false)}
                             </motion.div>
                         </div>
                     )
@@ -93,7 +106,7 @@ export const Menu: FC = () => {
     }
 
 
-    const buildThirdLevel = (pages: PageItem[], route: string) => {
+    const buildThirdLevel = (pages: PageItem[], route: string, isOpened: boolean) => {
         return (
             pages.map(p => (
                 <motion.div
@@ -101,7 +114,7 @@ export const Menu: FC = () => {
                     key={p.alias}
                 >
                     <Link href={`/${route}/${p.alias}`} >
-                        <a className={cn(styles.thirdLevel, {
+                        <a tabIndex={isOpened ? 0 : -1} className={cn(styles.thirdLevel, {
                             [styles.thirdLevelActive]: `/${route}/${p.alias}` === router.asPath
                         })}
                         >
