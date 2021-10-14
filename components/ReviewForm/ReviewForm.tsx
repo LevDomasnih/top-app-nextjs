@@ -18,7 +18,8 @@ export const ReviewForm: FC<ReviewFormProps> = ({ productId, isOpened, className
         control,
         handleSubmit,
         formState: { errors },
-        reset
+        reset,
+        clearErrors
     } = useForm<IReviewForm>()
     const [isSuccess, setIsSuccess] = useState<boolean>(false)
     const [error, setError] = useState<string>()
@@ -48,6 +49,7 @@ export const ReviewForm: FC<ReviewFormProps> = ({ productId, isOpened, className
                     placeholder='Имя'
                     error={errors.name}
                     tabIndex={isOpened ? 0 : -1}
+                    aria-invalid={errors.name ? true : false}
                 />
                 <Input
                     {...register('title', { required: { value: true, message: 'Заполните заголовок' } })}
@@ -55,6 +57,7 @@ export const ReviewForm: FC<ReviewFormProps> = ({ productId, isOpened, className
                     className={styles.title}
                     error={errors.title}
                     tabIndex={isOpened ? 0 : -1}
+                    aria-invalid={errors.title ? true : false}
                 />
                 <div className={styles.rating}>
                     <span>Оценка</span>
@@ -70,6 +73,7 @@ export const ReviewForm: FC<ReviewFormProps> = ({ productId, isOpened, className
                                 ref={field.ref}
                                 setRating={field.onChange}
                                 tabIndex={isOpened ? 0 : -1}
+                                aria-invalid={errors.rating ? true : false}
                             />
                         )}
                     />
@@ -80,9 +84,11 @@ export const ReviewForm: FC<ReviewFormProps> = ({ productId, isOpened, className
                     className={styles.description}
                     error={errors.description}
                     tabIndex={isOpened ? 0 : -1}
+                    aria-label='Текст отзыва'
+                    aria-invalid={errors.description ? true : false}
                 />
                 <div className={styles.submit}>
-                    <Button tabIndex={isOpened ? 0 : -1} appearance='primary'>
+                    <Button tabIndex={isOpened ? 0 : -1} appearance='primary' onClick={() => clearErrors()}>
                         Отправить
                     </Button>
                     <span className={styles.info}>* Перед публикацией отзыв пройдет предварительную модерацию и проверку</span>
